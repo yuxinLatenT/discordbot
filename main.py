@@ -32,7 +32,8 @@ async def on_raw_reaction_add(payload):
     if(payload.emoji.name in jdata):
         guild = bot.get_guild(payload.guild_id)
         role = guild.get_role(jdata[payload.emoji.name])
-        await payload.member.add_roles(role)
+        user = guild.get_member(payload.user_id)
+        await user.add_roles(role)
 
 #身分組移除-取消圖示
 @bot.event
