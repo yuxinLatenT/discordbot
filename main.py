@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import json
+import random
 
 with open("setting.json", mode="r", encoding="utf-8") as setting:
     jdata = json.load(setting)
@@ -20,11 +21,18 @@ async def hi(ctx):
     await ctx.send("hihi")
 
 #embed-bot的使用教學
-    
+
 #回傳bot的延遲
 @bot.command()
 async def ping(ctx):
     await ctx.send(f"{round(bot.latency*1000)}ms")
+
+#抽籤
+@bot.command()
+async def lots(ctx):
+    x = random.randint(0, 7)
+    sign = list(jdata["lot"])
+    await ctx.send(sign[x])
 
 #身分組取得-按圖示
 @bot.event
@@ -44,14 +52,20 @@ async def on_raw_reaction_remove(payload):
         role = guild.get_role(jdata[payload.emoji.name])
         await user.remove_roles(role)
 
-#分隊指令-名字
-@bot.command()
-async def game_n(ctx):
-    ctx.send()
 #分隊指令-身分組
 @bot.command()
 async def game_r(ctx):
     ctx.send()
+
+#分隊指令-名字
+@bot.command()
+async def game_n(ctx):
+    print("game_n")
+    await ctx.send("輸入:人數、組數")
+
+
+    #ctx.send()
+
 
 
 #分隊程式
