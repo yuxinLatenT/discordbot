@@ -34,6 +34,12 @@ async def lots(ctx):
     sign = list(jdata["lot"])
     await ctx.send(sign[x])
 
+#身分組取得
+@bot.command()
+async def team(ctx):
+    await ctx.send("請在此訊息下方新增反映貼圖已取得身分組:")
+    
+
 #身分組取得-按圖示
 @bot.event
 async def on_raw_reaction_add(payload):
@@ -62,7 +68,7 @@ async def game_r(ctx):
 async def game_n(ctx):
     print("game_n")
     await ctx.send("輸入:人數、組數")
-
+    #await 
 
     #ctx.send()
 
@@ -78,13 +84,12 @@ async def game_n(ctx):
         隨機分隊
     """
 #gamemode 
-'''
+"""
 @bot.event
-async def on_message(msg):
-    if(msg.content=="rick"):
-        await msg.channel.send("roll!")
+async def on_message(ctx):
+    if(ctx.content=="rick"):
+        await ctx.channel.send("roll!")
     else:
-        pass
-'''
-
+        pass    
+"""
 bot.run(jdata["Token"])
