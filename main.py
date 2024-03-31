@@ -47,6 +47,12 @@ async def lots(ctx):
     await ctx.send(sign[x])
     print("lots")
 
+#骰子
+@bot.command()
+async def dice(ctx):
+    x = random.randint(1, 6)
+    await ctx.send(x)
+
 #身分組
 @bot.command()
 async def team(ctx):
