@@ -16,6 +16,12 @@ bot = commands.Bot(command_prefix="&", intents=intents)
 async def on_ready():
     print('Ready!')
 
+#偵錯
+@bot.event
+async def on_command_error(ctx, exception):
+    if isinstance(exception, commands.PrivateMessageOnly):
+        await ctx.send("DM me '&rps' to use it.")
+
 @bot.command()
 async def hi(ctx):
     await ctx.send("hihi")
@@ -33,6 +39,7 @@ async def lots(ctx):
     x = random.randint(0, 7)
     sign = list(jdata["lot"])
     await ctx.send(sign[x])
+    print("lots")
 
 #身分組取得
 @bot.command()
@@ -72,7 +79,13 @@ async def game_n(ctx):
 
     #ctx.send()
 
-
+#猜拳
+@bot.command()
+@commands.dm_only()
+async def rps(ctx):
+    print("rock_paper_scissors")
+    await ctx.send("剪刀(2)、石頭(0)、布(5)選一個!")
+    
 
 #分隊程式
     """
