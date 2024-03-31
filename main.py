@@ -16,18 +16,25 @@ bot = commands.Bot(command_prefix="&", intents=intents)
 async def on_ready():
     print('Ready!')
 
-#偵錯
+#偵錯-私訊問題
 @bot.event
 async def on_command_error(ctx, exception):
     if isinstance(exception, commands.PrivateMessageOnly):
         await ctx.send("DM me '&rps' to use it.")
 
+#embed-bot的使用教學
 @bot.command()
 async def hi(ctx):
     await ctx.send("hihi")
-
-#embed-bot的使用教學
-
+    print("embed")
+    embed = discord.Embed(title="使用教學", color=0x58b2dc)
+    embed.set_author(name="by sakana", url="https://github.com/yuxinLatenT/discordbot")
+    embed.add_field(name="&ping", value="回傳bot的延遲", inline=0)
+    embed.add_field(name="&lots", value="抽籤", inline=0)
+    embed.add_field(name="&team", value="身份組", inline=0)
+    embed.add_field(name="&rps", value="猜拳", inline=0)
+    await ctx.send(embed=embed)
+    
 #回傳bot的延遲
 @bot.command()
 async def ping(ctx):
@@ -41,12 +48,11 @@ async def lots(ctx):
     await ctx.send(sign[x])
     print("lots")
 
-#身分組取得
+#身分組
 @bot.command()
 async def team(ctx):
-    await ctx.send("請在此訊息下方新增反映貼圖已取得身分組:")
+    await ctx.send("請在此訊息下方新增反映貼圖以取得身分組:")
     
-
 #身分組取得-按圖示
 @bot.event
 async def on_raw_reaction_add(payload):
