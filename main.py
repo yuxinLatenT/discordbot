@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-import json
-import random
+import json, random, asyncio
 
 with open("setting.json", mode="r", encoding="utf-8") as setting:
     jdata = json.load(setting)
@@ -52,11 +51,17 @@ async def lots(ctx):
 @bot.command()
 async def team(ctx):
     await ctx.send("請在此訊息下方新增反映貼圖以取得身分組:")
+    jdata["start_team"] = 1
+    print("team", jdata["start_team"])
+    await asyncio.sleep(60*3) #身份組取得的權限持續3分鐘
+    jdata["start_team"] = 0
+    print("team", jdata["start_team"])
     
 #身分組取得-按圖示
 @bot.event
 async def on_raw_reaction_add(payload):
-    if(payload.emoji.name in jdata):
+    print("reaction", jdata["start_team"])
+    if(payload.emoji.name in jdata and jdata["start_team"]):
         guild = bot.get_guild(payload.guild_id)
         role = guild.get_role(jdata[payload.emoji.name])
         user = guild.get_member(payload.user_id)
@@ -92,6 +97,8 @@ async def rps(ctx):
     print("rock_paper_scissors")
     await ctx.send("剪刀(2)、石頭(0)、布(5)選一個!")
     
+
+
 
 #分隊程式
     """
