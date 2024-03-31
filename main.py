@@ -53,6 +53,23 @@ async def dice(ctx):
     x = random.randint(1, 6)
     await ctx.send(x)
 
+#數字炸彈
+@bot.command()
+async def n_and_b(ctx):
+    print("boooon!!")
+    
+#猜數字遊戲(bulls&cows)
+@bot.command()
+async def b_and_c(ctx):
+    await ctx.send("hihi")
+    
+#猜拳
+@bot.command()
+@commands.dm_only()
+async def rps(ctx):
+    print("rock_paper_scissors")
+    await ctx.send("剪刀(2)、石頭(0)、布(5)選一個!")
+
 #身分組
 @bot.command()
 async def team(ctx):
@@ -96,12 +113,7 @@ async def game_n(ctx):
 
     #ctx.send()
 
-#猜拳
-@bot.command()
-@commands.dm_only()
-async def rps(ctx):
-    print("rock_paper_scissors")
-    await ctx.send("剪刀(2)、石頭(0)、布(5)選一個!")
+
     
 
 
