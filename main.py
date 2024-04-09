@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 import json, random, asyncio
+from datetime import datetime
+
+random.seed(datetime.now().timestamp())
 
 with open("setting.json", mode="r", encoding="utf-8") as setting:
     jdata = json.load(setting)
@@ -51,17 +54,15 @@ async def lots(ctx):
 @bot.command()
 async def dice(ctx):
     x = random.randint(1, 6)
-    await ctx.send(x)
+    print(x)
+    await ctx.send(jdata["dices"][x-1])
 
 #數字炸彈
 @bot.command()
 async def n_and_b(ctx):
     print("boooon!!")
     
-#猜數字遊戲(bulls&cows)
-@bot.command()
-async def b_and_c(ctx):
-    await ctx.send("hihi")
+
     
 #猜拳
 @bot.command()
@@ -83,13 +84,27 @@ async def team(ctx):
 #身分組取得-按圖示
 @bot.event
 async def on_raw_reaction_add(payload):
-    print("reaction", jdata["start_team"])
+    #print("reaction", jdata["start_team"])
     if(payload.emoji.name in jdata and jdata["start_team"]):
         guild = bot.get_guild(payload.guild_id)
         role = guild.get_role(jdata[payload.emoji.name])
         user = guild.get_member(payload.user_id)
         await user.add_roles(role)
 
+    if(str(payload.emoji) == ":puls_one:"):
+        user = guild.get_member(payload.user_id)
+        jdata["b_c_joinlist"]
+#猜數字遊戲(bulls&cows)
+'''
+    按鈕選擇要不要參加-[參加名單]
+    
+'''
+@bot.command()
+async def b_and_c(ctx):
+    jdata["b_c_joinlist"] = []
+    await ctx.send("小遊戲bulls&cows，要參加的按下表情符號喔!")
+    b = c = 0        
+        
 #身分組移除-取消圖示
 @bot.event
 async def on_raw_reaction_remove(payload):
@@ -112,11 +127,6 @@ async def game_n(ctx):
     #await 
 
     #ctx.send()
-
-
-    
-
-
 
 #分隊程式
     """
