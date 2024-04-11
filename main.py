@@ -8,6 +8,9 @@ random.seed(datetime.now().timestamp())
 with open("setting.json", mode="r", encoding="utf-8") as setting:
     jdata = json.load(setting)
 
+with open("token.json", mode="r", encoding="utf-8") as token:
+    jdata_t = json.load(token)
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
@@ -48,7 +51,6 @@ async def lots(ctx):
     x = random.randint(0, 7)
     sign = list(jdata["lot"])
     await ctx.send(sign[x])
-    print("lots")
 
 #骰子
 @bot.command()
@@ -62,19 +64,19 @@ async def dice(ctx):
 async def n_and_b(ctx):
     print("boooon!!")
     
-
-    
 #猜拳
+'''
 @bot.command()
 @commands.dm_only()
 async def rps(ctx):
     print("rock_paper_scissors")
     await ctx.send("剪刀(2)、石頭(0)、布(5)選一個!")
+'''
 
 #身分組
 @bot.command()
 async def team(ctx):
-    await ctx.send("請在此訊息下方新增反映貼圖以取得身分組:")
+    await ctx.send("請在此訊息下方新增反應貼圖以取得身分組:")
     jdata["start_team"] = 1
     print("team", jdata["start_team"])
     await asyncio.sleep(60*3) #身份組取得的權限持續3分鐘
@@ -85,7 +87,7 @@ async def team(ctx):
 @bot.event
 async def on_raw_reaction_add(payload):
     #print("reaction", jdata["start_team"])
-    if(payload.emoji.name in jdata and jdata["start_team"]):
+    if(payload.emoji.name in jdata["color_roles"] and jdata["start_team"]):
         guild = bot.get_guild(payload.guild_id)
         role = guild.get_role(jdata[payload.emoji.name])
         user = guild.get_member(payload.user_id)
@@ -94,17 +96,21 @@ async def on_raw_reaction_add(payload):
     if(str(payload.emoji) == ":puls_one:"):
         user = guild.get_member(payload.user_id)
         jdata["b_c_joinlist"]
-#猜數字遊戲(bulls&cows)
-'''
-    按鈕選擇要不要參加-[參加名單]
-    
-'''
+
 @bot.command()
-async def b_and_c(ctx):
-    jdata["b_c_joinlist"] = []
+async def b_and_c(ctx, msg):
     await ctx.send("小遊戲bulls&cows，要參加的按下表情符號喔!")
-    b = c = 0        
-        
+    answer = random.sample(range(1, 10), 4)
+    print(msg)
+    b = c = n = 0
+    while(b != 4):
+        msg = await ctx.fetch_message()
+        print(msg)
+        b = c = n = 0     
+
+#&n 數字
+
+
 #身分組移除-取消圖示
 @bot.event
 async def on_raw_reaction_remove(payload):
@@ -146,4 +152,4 @@ async def on_message(ctx):
     else:
         pass    
 """
-bot.run(jdata["Token"])
+bot.run(jdata_t["Token"])
