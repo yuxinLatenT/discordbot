@@ -15,7 +15,7 @@ discord bot - zako
 | :flags: | &lots       | 一個非常「正常」的籤筒，絕對不會抽出甚麼奇怪的東西  |    
 | :flags: | &dice       | 一次可骰一顆1~6點的骰子 |  
 | :flags: | &n_and_b    | number&bumb! 和朋友們輪流猜數字，直到任何人不小心猜到為止 |  
-| :flags: | &b_and_c    | bulls&cows! 自己設定一個4位數，不要讓對方知道，根據提示輪流猜對方的數字，看看誰會先猜中 |  
+| :flags: | &b_and_c    | bulls&cows! 根據提示猜4位數的數字 |  
 | :flags: | &rps        | rock paper scissors! 就是剪刀石頭布，但不會因為任何人的爛網路而變得不公平 |  
 
 `小工具`  
